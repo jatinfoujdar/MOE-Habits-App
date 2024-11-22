@@ -1,11 +1,11 @@
 import SwiftUI
 import Lottie
 
-struct AnimationView: View {
+struct GetStartedView: View {
     @State private var showText = false
     @State private var moveToTopLeft = false
     @State private var showLottieAnimation = false
-    @State private var showButton = false  
+    @State private var showButton = false
 
     var body: some View {
         ZStack {
@@ -127,5 +127,5 @@ struct LottieView: UIViewRepresentable {
 }
 
 #Preview {
-    AnimationView()
+    GetStartedView()
 }
