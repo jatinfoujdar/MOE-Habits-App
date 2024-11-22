@@ -4,7 +4,8 @@ import Lottie
 struct AnimationView: View {
     @State private var showText = false
     @State private var moveToTopLeft = false
-    @State private var showLottieAnimation = false // State to control the display of the Lottie animation
+    @State private var showLottieAnimation = false
+    @State private var showButton = false  
 
     var body: some View {
         ZStack {
@@ -67,16 +68,40 @@ struct AnimationView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     moveToTopLeft = true
                 }
-                // Show Lottie animation after text animation completes
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
                     showLottieAnimation = true
                 }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.8) {
+                    showButton = true
+                }
             }
             
-            if showLottieAnimation {
-                LottieView(fileName: "CatBalll")
-                    .frame(width: 200, height: 200)
-                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+            VStack {
+                Spacer()
+
+                if showLottieAnimation {
+                    LottieView(fileName: "CatBalll")
+                        .frame(width: 200, height: 200)
+                        .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                }
+
+                if showButton {
+                    Button(action: {
+                     
+                        print("Button tapped!")
+                    }) {
+                        Text("Get Started")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                    }
+                    .padding(.bottom, 30)
+                }
             }
         }
     }
@@ -92,7 +117,6 @@ struct LottieView: UIViewRepresentable {
         animationView.contentMode = .scaleAspectFit
         view.addSubview(animationView)
         
-        // Set the loop mode to .loop to make the animation loop continuously
         animationView.loopMode = .loop
         animationView.play()
         
@@ -101,7 +125,6 @@ struct LottieView: UIViewRepresentable {
 
     func updateUIView(_ uiView: UIViewType, context: Context) {}
 }
-
 
 #Preview {
     AnimationView()
